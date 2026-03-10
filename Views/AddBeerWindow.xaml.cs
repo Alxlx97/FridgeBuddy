@@ -20,12 +20,12 @@ public partial class AddBeerWindow : Window
         PackSizeBox.SelectedItem = PackSize;
     }
 
-    private void AddClick(object sender, RoutedEventArgs e)
+    private void btn_add(object sender, RoutedEventArgs e)
     {
         var name = (NameBox.Text ??  "").Trim();
         if (string.IsNullOrWhiteSpace(name))
         {
-            MessageBox.Show("Please enter a name.");
+            MessageBox.Show("Please enter a name.", "Adding a beer", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
         

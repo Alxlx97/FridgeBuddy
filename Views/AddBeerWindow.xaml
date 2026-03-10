@@ -37,7 +37,7 @@
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Width="90" Margin="0,0,8,0" Content="Cancel" IsCancel="True"/>
-            <Button Width="90" Content="Add" IsDefault="True" Click="AddClick"/>
+            <Button Width="90" Content="Add" IsDefault="True" Click="btn_add"/>
         </StackPanel>
     </Grid>
 </Window>

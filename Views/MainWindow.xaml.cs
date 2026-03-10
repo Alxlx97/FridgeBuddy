@@ -22,4 +22,21 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataContext = new MainViewModel();
     }
+
+    private void btn_delete(object sender, RoutedEventArgs e)
+    {
+        var deleteResult = MessageBox.Show("Are you sure you want to delete this beer?", "Delete a beer",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+
+        if (deleteResult is not MessageBoxResult.Yes)
+        {
+            return;
+        }
+
+        if (DataContext is MainViewModel vm && vm.DeleteCommand.CanExecute(null))
+        {
+            vm.DeleteCommand.Execute(null);
+        }
+    }
 }

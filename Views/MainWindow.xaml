@@ -70,11 +70,6 @@
                                Margin="0,0,0,12"/>
 
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Width="120" Text="Id:"/>
-                        <TextBlock Text="{Binding SelectedBeer.Id}"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                         <TextBlock Width="120" Text="Quantity:"/>
                         <TextBlock Text="{Binding SelectedBeer.Quantity}"/>
                     </StackPanel>
@@ -87,7 +82,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Delete"
                                 Width="90" Margin="0,0,8,0"
-                                Command="{Binding DeleteCommand}"/>
+                                Command="{Binding DeleteCommand}" Click="btn_delete" />
 
                         <Button Content="Update (later)"
                                 Width="120" IsEnabled="False"/>

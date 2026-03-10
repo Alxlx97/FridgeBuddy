@@ -82,7 +82,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Delete"
                                 Width="90" Margin="0,0,8,0"
-                                Command="{Binding DeleteCommand}" Click="btn_delete" />
+                                Command="{Binding DeleteCommand}"/>
 
                         <Button Content="Update (later)"
                                 Width="120" IsEnabled="False"/>

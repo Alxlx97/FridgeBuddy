@@ -24,6 +24,8 @@ public class MainViewModel : INotifyPropertyChanged
     
     private readonly IBeerDialogService _beerDialogService;
 
+    private readonly IConfirmDialogService _confirm = new ConfirmDialogService();
+    
     public ObservableCollection<Beer> Beers { get; } = new();
     
     private Beer? _selectedBeer;
@@ -61,13 +63,14 @@ public class MainViewModel : INotifyPropertyChanged
     public RelayCommand AddCommand { get; }
     public RelayCommand DeleteCommand { get; }
     
-    public MainViewModel() : this(new BeerStorage(), new BeerDialogService()) { }
+    public MainViewModel() : this(new BeerStorage(), new BeerDialogService(),  new ConfirmDialogService()) { }
 
-    public MainViewModel(BeerStorage beerStorage, IBeerDialogService beerDialogService)
+    public MainViewModel(BeerStorage beerStorage, IBeerDialogService beerDialogService, IConfirmDialogService confirmDialogService)
     {
         
         _beerStorage = beerStorage;
         _beerDialogService = beerDialogService;
+        _confirm = confirmDialogService;
         
         foreach (var beer in _beerStorage.Load())
             Beers.Add(beer);
@@ -110,10 +113,12 @@ public class MainViewModel : INotifyPropertyChanged
     private void DeleteBeer()
     {
         if (SelectedBeer is null) return;
+
+        if (!_confirm.Confirm("Are you sure you want to delete this beer?", "Delete a beer"))
+            return;
         
         Beers.Remove(SelectedBeer);
         SelectedBeer = null;
-        
         DeleteCommand.RaiseCanExecuteChanged();
         _beerStorage.Save(Beers);
     }

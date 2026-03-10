@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Linq;
 using BeerTracker.Models;
+using BeerTracker.Services;
 
 namespace BeerTracker.ViewModels;
 
@@ -16,6 +17,12 @@ public class MainViewModel : INotifyPropertyChanged
     private int _newQuantity = 1;
 
     private ServingSize _newServingSize = ServingSize.Ml355;
+
+    private PackSize _newPackSize = PackSize.Single;
+    
+    private readonly BeerStorage _beerStorage = new();
+    
+    private readonly IBeerDialogService _beerDialogService;
 
     public ObservableCollection<Beer> Beers { get; } = new();
     
@@ -37,26 +44,67 @@ public class MainViewModel : INotifyPropertyChanged
     public int NewQuantity { get => _newQuantity; set { _newQuantity = value; OnPropertyChanged(); } }
     
     public ServingSize NewServingSize { get => _newServingSize; set { _newServingSize = value; OnPropertyChanged(); } }
-    public ServingSize[] ServingSizes { get; } = System.Enum.GetValues(typeof(ServingSize)).Cast<ServingSize>().ToArray();
+    public ServingSize[] ServingSizes { get; } = Enum.GetValues(typeof(ServingSize)).Cast<ServingSize>().ToArray();
+
+    public PackSize NewPackSize
+    {
+        get => _newPackSize;
+        set
+        {
+            _newPackSize = value;
+            OnPropertyChanged();
+        }
+    }
+    
+    public PackSize[] PackSizes { get; } = Enum.GetValues(typeof(PackSize)).Cast<PackSize>().ToArray();
     
     public RelayCommand AddCommand { get; }
     public RelayCommand DeleteCommand { get; }
+    
+    public MainViewModel() : this(new BeerStorage(), new BeerDialogService()) { }
 
-    public MainViewModel()
+    public MainViewModel(BeerStorage beerStorage, IBeerDialogService beerDialogService)
     {
+        
+        _beerStorage = beerStorage;
+        _beerDialogService = beerDialogService;
+        
+        foreach (var beer in _beerStorage.Load())
+            Beers.Add(beer);
+            
+        _nextId = Beers.Count == 0 ? 1 : Beers.Max(b => b.Id) + 1;
+            
         AddCommand = new RelayCommand(AddBeer);
         DeleteCommand = new RelayCommand(DeleteBeer, () => SelectedBeer != null);
     }
 
     private void AddBeer()
     {
-        if(string.IsNullOrWhiteSpace(NewName)) return;
+        if (!_beerDialogService.TryShowAddBeerDialog(out var result))
+            return;
+        
+        if (string.IsNullOrWhiteSpace(result.Name)) return;
+        
+        int packQty = (int)result.PackSize;
+        
+        var existingBeer = Beers.FirstOrDefault(b => string.Equals(b.Name, result.Name, StringComparison.OrdinalIgnoreCase) && b.ServingSize == result.ServingSize);
 
-        Beers.Add(new Beer(_nextId++, NewName.Trim(), NewQuantity, NewServingSize));
-
-        NewName = "";
-        NewQuantity = 1;
-        NewServingSize = ServingSize.Ml355;
+        if (existingBeer is not null)
+        {
+            existingBeer.Quantity += packQty;
+        }
+        else
+        {
+            Beers.Add(new Beer()
+            {
+                Id = _nextId++,
+                Name = result.Name,
+                Quantity = packQty,
+                ServingSize = result.ServingSize
+            });   
+        }
+        
+        _beerStorage.Save(Beers);
     }
     
     private void DeleteBeer()
@@ -67,6 +115,7 @@ public class MainViewModel : INotifyPropertyChanged
         SelectedBeer = null;
         
         DeleteCommand.RaiseCanExecuteChanged();
+        _beerStorage.Save(Beers);
     }
     
     public event PropertyChangedEventHandler? PropertyChanged;

@@ -18,7 +18,6 @@
                            FontWeight="SemiBold"
                            Foreground="White"
                            DockPanel.Dock="Left"/>
-
                 <TextBlock Text="Inventory"
                            Foreground="#CFCFCF"
                            VerticalAlignment="Center"
@@ -34,12 +33,15 @@
                 <ColumnDefinition Width="2.5*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Beer list -->
+            <!-- Inventory -->
             <GroupBox Header="Inventory">
                 <DockPanel>
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
-                        <Button x:Name="addButton" Content="Add" Width="70"
-                                Command="{Binding AddCommand}" Margin="480, 0, 0, 0"/>
+                    <StackPanel DockPanel.Dock="Top"
+                                Orientation="Horizontal"
+                                Margin="0,0,0,8"
+                                HorizontalAlignment="Right">
+                        <Button Content="Add" Width="70"
+                                Command="{Binding AddCommand}"/>
                     </StackPanel>
 
                     <ListBox ItemsSource="{Binding Beers}"
@@ -53,7 +55,8 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="{Binding Name}" />
-                                    <TextBlock Grid.Column="1" Margin="12,0,0,0"
+                                    <TextBlock Grid.Column="1"
+                                               Margin="12,0,0,0"
                                                Text="{Binding Quantity}" />
                                 </Grid>
                             </DataTemplate>
@@ -62,10 +65,11 @@
                 </DockPanel>
             </GroupBox>
 
-            <!-- Beer's Details -->
+            <!-- Details -->
             <GroupBox Grid.Column="2" Header="Details">
                 <StackPanel Margin="12">
-                    <TextBlock FontSize="18" FontWeight="SemiBold"
+                    <TextBlock FontSize="18"
+                               FontWeight="SemiBold"
                                Text="{Binding SelectedBeer.Name}"
                                Margin="0,0,0,12"/>
 
@@ -79,17 +83,99 @@
                         <TextBlock Text="{Binding SelectedBeer.ServingSize}"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <Button x:Name="deleteButton"  Content="Delete"
-                                Width="90" Margin="0,0,8,0"
-                                Command="{Binding DeleteCommand}"/>
+                    <!-- Actions (only show when a beer is selected) -->
+                    <StackPanel Margin="0,12,0,0">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
 
-                        <Button x:Name="editButton"  Content="Edit"
-                                Width="120" Command="{Binding EditCommand}"/>
+                        <!-- Delete / Edit -->
+                        <UniformGrid Columns="2" Margin="0,0,0,10">
+                            <Button Content="Delete" Margin="0,0,8,0" Command="{Binding DeleteCommand}"/>
+                            <Button Content="Edit" Command="{Binding EditCommand}"/>
+                        </UniformGrid>
+
+                        <!-- + / - when Quantity > 0 -->
+                        <UniformGrid Columns="2" Margin="0,0,0,10">
+                            <UniformGrid.Style>
+                                <Style TargetType="UniformGrid">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedBeer.Quantity}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </UniformGrid.Style>
+
+                            <Button Content="+" Margin="0,0,8,0" Command="{Binding AddOneCommand}"/>
+                            <Button Content="-" Command="{Binding DrinkOneCommand}"/>
+                        </UniformGrid>
+
+                        <!-- Drink row centered (hidden at 0) -->
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0,0,0,10"
+                                    HorizontalAlignment="Center">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedBeer.Quantity}" Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+
+                            <TextBox Width="70"
+                                     Margin="0,0,8,0"
+                                     Text="{Binding DrinkAmount, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <Button Content="Drink"
+                                    Width="70"
+                                    Command="{Binding DrinkManyCommand}" />
+                        </StackPanel>
+
+                        <!-- Restock when Quantity == 0 -->
+                        <Button Content="Restock"
+                                Height="28"
+                                Command="{Binding RestockCommand}">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedBeer.Quantity}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
                     </StackPanel>
 
-                    <TextBlock Margin="0,16,0,0" Foreground="Gray" FontStyle="Italic"
-                               Text="Select a beer to see details here."/>
+                    <!-- Tip only when nothing is selected -->
+                    <TextBlock Margin="0,16,0,0"
+                               Foreground="Gray"
+                               FontStyle="Italic"
+                               Text="Select a beer to see details here.">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </StackPanel>
             </GroupBox>
         </Grid>

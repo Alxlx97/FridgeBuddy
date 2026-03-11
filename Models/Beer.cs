@@ -12,6 +12,8 @@ public class Beer : INotifyPropertyChanged
     private int _quantity;
 
     private ServingSize _servingSize;
+    
+    private int _restockAmount;
 
     public int Id
     {
@@ -31,9 +33,16 @@ public class Beer : INotifyPropertyChanged
         set {  _quantity = value; OnPropertyChanged();}
     }
     
-    public ServingSize ServingSize { 
+    public ServingSize ServingSize 
+    { 
         get => _servingSize; 
         set {  _servingSize = value; OnPropertyChanged();} 
+    }
+    
+    public int RestockAmount
+    {
+        get => _restockAmount;
+        set {  _restockAmount = value; OnPropertyChanged();}
     }
     
     public event PropertyChangedEventHandler? PropertyChanged;

@@ -38,7 +38,7 @@
             <GroupBox Header="Inventory">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
-                        <Button Content="Add" Width="70"
+                        <Button x:Name="addButton" Content="Add" Width="70"
                                 Command="{Binding AddCommand}" Margin="480, 0, 0, 0"/>
                     </StackPanel>
 
@@ -80,12 +80,12 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="Delete"
+                        <Button x:Name="deleteButton"  Content="Delete"
                                 Width="90" Margin="0,0,8,0"
                                 Command="{Binding DeleteCommand}"/>
 
-                        <Button Content="Update (later)"
-                                Width="120" IsEnabled="False"/>
+                        <Button x:Name="editButton"  Content="Edit"
+                                Width="120" Command="{Binding EditCommand}"/>
                     </StackPanel>
 
                     <TextBlock Margin="0,16,0,0" Foreground="Gray" FontStyle="Italic"

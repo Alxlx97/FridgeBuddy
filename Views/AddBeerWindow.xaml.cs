@@ -9,15 +9,26 @@ public partial class AddBeerWindow : Window
     public ServingSize ServingSize { get; private set; } = ServingSize.Ml355;
     public PackSize PackSize { get; private set; } = PackSize.Single;
 
-    public AddBeerWindow()
+    public AddBeerWindow(string? name = null, ServingSize? servingSize = null, PackSize? packSize = null, bool isEdit = false)
     {
         InitializeComponent();
-        
+            
         ServingSizeBox.ItemsSource = Enum.GetValues(typeof(ServingSize)).Cast<ServingSize>();
         ServingSizeBox.SelectedItem = ServingSize;
         
         PackSizeBox.ItemsSource = Enum.GetValues(typeof(PackSize)).Cast<PackSize>();
         PackSizeBox.SelectedItem = PackSize;
+        
+        NameBox.Text = name ?? "";
+        
+        var initialSize = servingSize ?? ServingSize.Ml355;
+        ServingSizeBox.SelectedItem = initialSize;
+        
+        var initialPackSize = packSize ?? PackSize.Single;
+        PackSizeBox.SelectedItem = initialPackSize;
+        
+        AddButton.Content = isEdit ? "Modify" : "Add";
+        Title = isEdit ? "Modify a beer" :  "Add a beer";
     }
 
     private void btn_add(object sender, RoutedEventArgs e)

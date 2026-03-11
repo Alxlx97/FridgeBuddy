@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Linq;
+using System.Windows.Documents;
 using BeerTracker.Models;
 using BeerTracker.Services;
 
@@ -38,6 +39,7 @@ public class MainViewModel : INotifyPropertyChanged
             _selectedBeer = value;
             OnPropertyChanged();
             DeleteCommand.RaiseCanExecuteChanged();
+            EditCommand.RaiseCanExecuteChanged();
         }
     }
     
@@ -61,6 +63,9 @@ public class MainViewModel : INotifyPropertyChanged
     public PackSize[] PackSizes { get; } = Enum.GetValues(typeof(PackSize)).Cast<PackSize>().ToArray();
     
     public RelayCommand AddCommand { get; }
+    
+    public RelayCommand EditCommand { get; }
+    
     public RelayCommand DeleteCommand { get; }
     
     public MainViewModel() : this(new BeerStorage(), new BeerDialogService(),  new ConfirmDialogService()) { }
@@ -79,12 +84,12 @@ public class MainViewModel : INotifyPropertyChanged
             
         AddCommand = new RelayCommand(AddBeer);
         DeleteCommand = new RelayCommand(DeleteBeer, () => SelectedBeer != null);
+        EditCommand = new RelayCommand(EditBeer, () => SelectedBeer != null);
     }
 
     private void AddBeer()
     {
-        if (!_beerDialogService.TryShowAddBeerDialog(out var result))
-            return;
+        if (!_beerDialogService.TryShowAddBeerDialog(out var result)) return;
         
         if (string.IsNullOrWhiteSpace(result.Name)) return;
         
@@ -106,6 +111,18 @@ public class MainViewModel : INotifyPropertyChanged
                 ServingSize = result.ServingSize
             });   
         }
+        
+        _beerStorage.Save(Beers);
+    }
+
+    private void EditBeer()
+    {
+        if (SelectedBeer is null) return;
+
+        if (!_beerDialogService.TryShowEditBeerDialog(SelectedBeer, out var result)) return;
+        
+        SelectedBeer.Name = result.Name;
+        SelectedBeer.ServingSize = result.ServingSize;
         
         _beerStorage.Save(Beers);
     }

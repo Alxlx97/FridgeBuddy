@@ -1,5 +1,8 @@
 ﻿using System.Windows;
 using BeerTracker.Models;
+using Wpf.Ui.Controls;
+using MessageBox = System.Windows.MessageBox;
+using MessageBoxButton = System.Windows.MessageBoxButton;
 
 namespace BeerTracker.Views;
 

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using BeerTracker.Services;
 using BeerTracker.ViewModels;
+using Wpf.Ui.Controls;
 
 namespace BeerTracker;
 

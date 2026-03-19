@@ -10,7 +10,16 @@ public class BeerStorage
     
     public BeerStorage(string? filePath = null)
     {
-        _filePath = string.IsNullOrWhiteSpace(filePath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Beers.json") : filePath;
+        if (!string.IsNullOrWhiteSpace(filePath))
+        {
+            _filePath = filePath;
+            return;
+        }
+        
+        var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BeerTracker");
+        
+        Directory.CreateDirectory(folder);
+        _filePath = Path.Combine(folder, "beer.json");
     }
 
     public List<Beer> Load()

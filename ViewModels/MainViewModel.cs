@@ -11,15 +11,7 @@ public class MainViewModel : INotifyPropertyChanged
 {
     private int _nextId = 1;
     
-    private string _newName = "";
-    
-    private int _newQuantity = 1;
-    
     private int _drinkAmount = 1;
-
-    private ServingSize _newServingSize = ServingSize.Ml355;
-
-    private PackSize _newPackSize = PackSize.Single;
     
     private readonly BeerStorage _beerStorage = new();
     
@@ -30,8 +22,6 @@ public class MainViewModel : INotifyPropertyChanged
     public ObservableCollection<Beer> Beers { get; } = new();
     
     private Beer? _selectedBeer;
-    
-    public PackSize[] PackSizes { get; } = Enum.GetValues(typeof(PackSize)).Cast<PackSize>().ToArray();
     
     public RelayCommand AddCommand { get; }
     
@@ -73,29 +63,11 @@ public class MainViewModel : INotifyPropertyChanged
             RestockCommand.RaiseCanExecuteChanged();
         }
     }
-    
-    public string NewName { get => _newName; set { _newName = value; OnPropertyChanged(); } }
-    
-    public int NewQuantity { get => _newQuantity; set { _newQuantity = value; OnPropertyChanged(); } }
-    
-    public ServingSize NewServingSize { get => _newServingSize; set { _newServingSize = value; OnPropertyChanged(); } }
-    public ServingSize[] ServingSizes { get; } = Enum.GetValues(typeof(ServingSize)).Cast<ServingSize>().ToArray();
 
-    public PackSize NewPackSize
-    {
-        get => _newPackSize;
-        set
-        {
-            _newPackSize = value;
-            OnPropertyChanged();
-        }
-    }
-    
-    public MainViewModel() : this(new BeerStorage(), new BeerDialogService(),  new ConfirmDialogService()) { }
+    public MainViewModel() : this(new BeerStorage(), new BeerDialogService(), new ConfirmDialogService()) { }
 
     public MainViewModel(BeerStorage beerStorage, IBeerDialogService beerDialogService, IConfirmDialogService confirmDialogService)
     {
-        
         _beerStorage = beerStorage;
         _beerDialogService = beerDialogService;
         _confirm = confirmDialogService;
@@ -109,8 +81,7 @@ public class MainViewModel : INotifyPropertyChanged
             
             Beers.Add(beer);
         }
-          
-            
+        
         _nextId = Beers.Count == 0 ? 1 : Beers.Max(b => b.Id) + 1;
             
         AddCommand = new RelayCommand(AddBeer);
@@ -183,12 +154,12 @@ public class MainViewModel : INotifyPropertyChanged
         
         SelectedBeer.Quantity += 1;
        
-       _beerStorage.Save(Beers);
+        _beerStorage.Save(Beers);
        
-       AddOneCommand.RaiseCanExecuteChanged();
-       DrinkOneCommand.RaiseCanExecuteChanged();
-       DrinkManyCommand.RaiseCanExecuteChanged();
-       RestockCommand.RaiseCanExecuteChanged();
+        AddOneCommand.RaiseCanExecuteChanged();
+        DrinkOneCommand.RaiseCanExecuteChanged();
+        DrinkManyCommand.RaiseCanExecuteChanged();
+        RestockCommand.RaiseCanExecuteChanged();
     }
 
     private void DrinkOneBeer()
@@ -209,7 +180,7 @@ public class MainViewModel : INotifyPropertyChanged
     private void DrinkManyBeers()
     {
         if (SelectedBeer is null) return;
-        if(DrinkAmount <= 0) return;
+        if (DrinkAmount <= 0) return;
 
         if (DrinkAmount > SelectedBeer.Quantity)
         {

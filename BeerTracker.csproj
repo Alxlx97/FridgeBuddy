@@ -20,4 +20,11 @@
       <PackageReference Include="WPF-UI" Version="4.2.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="beer.png" />
+      <Resource Include="beer.png" />
+      <None Remove="beer.ico" />
+      <Resource Include="beer.ico" />
+    </ItemGroup>
+
 </Project>

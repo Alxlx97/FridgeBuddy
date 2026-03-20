@@ -5,170 +5,209 @@
         xmlns:converters="clr-namespace:BeerTracker.Converters"
         Title="BeerTracker" Height="450" Width="900"
         Background="{DynamicResource ApplicationBackgroundBrush}"
-        Foreground="{DynamicResource TextFillColorPrimaryBrush}">
+        Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+        Icon="pack://application:,,,/beer.ico">
 
     <Grid Margin="12">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="12" />
-            <ColumnDefinition Width="2.5*" />
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />  <!-- 0 header -->
+            <RowDefinition Height="8" />     <!-- 1 gap -->
+            <RowDefinition Height="*" />     <!-- 2 panels -->
+        </Grid.RowDefinitions>
 
-        <!-- Inventory -->
-        <GroupBox Header="Inventory">
-            <DockPanel>
-                <StackPanel DockPanel.Dock="Top"
-                            Orientation="Horizontal"
-                            Margin="0,0,0,8"
-                            HorizontalAlignment="Right">
-                    <ui:Button Icon="Add24" Content="Add" Command="{Binding AddCommand}" />
-                </StackPanel>
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="Beer Tracker" FontSize="36" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <Image Source="pack://application:,,,/beer.png" Width="46" Height="46" Margin="0,0,8,0" />
+        </StackPanel>
 
-                <ListBox ItemsSource="{Binding Beers}"
-                         SelectedItem="{Binding SelectedBeer, Mode=TwoWay}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Name}" />
-                                <TextBlock Grid.Column="1" Margin="12,0,0,0" Text="{Binding Quantity}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </DockPanel>
-        </GroupBox>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="12" />
+                <ColumnDefinition Width="2.5*" />
+            </Grid.ColumnDefinitions>
 
-        <!-- Details -->
-        <GroupBox Grid.Column="2" Header="Details">
-            <Grid Margin="12">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />  <!-- 0 name -->
-                    <RowDefinition Height="16" />    <!-- 1 gap -->
-                    <RowDefinition Height="Auto" />  <!-- 2 info -->
-                    <RowDefinition Height="2*" />    <!-- 3 flex spacer -->
-                    <RowDefinition Height="Auto" />  <!-- 4 +1/-1 -->
-                    <RowDefinition Height="8" />     <!-- 5 gap -->
-                    <RowDefinition Height="Auto" />  <!-- 6 drink row -->
-                    <RowDefinition Height="1*" />    <!-- 7 flex spacer -->
-                    <RowDefinition Height="Auto" />  <!-- 8 separator -->
-                    <RowDefinition Height="1*" />    <!-- 9 flex spacer -->
-                    <RowDefinition Height="Auto" />  <!-- 10 edit/delete -->
-                    <RowDefinition Height="2*" />    <!-- 11 bottom padding -->
-                </Grid.RowDefinitions>
+            <!-- Inventory -->
+            <GroupBox Header="Inventory" BorderThickness="0.1">
 
-                <!-- Name -->
-                <TextBlock Grid.Row="0"
-                           FontSize="18"
-                           FontWeight="SemiBold"
-                           Text="{Binding SelectedBeer.Name}" />
-
-                <!-- Info -->
-                <StackPanel Grid.Row="2">
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                        <TextBlock Width="100" Text="Quantity:" />
-                        <TextBlock Text="{Binding SelectedBeer.Quantity}" />
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top"
+                                Orientation="Horizontal"
+                                Margin="0,0,0,8"
+                                HorizontalAlignment="Right">
+                        <ui:Button Icon="Add24" Content="Add" Command="{Binding AddCommand}" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Width="100" Text="Serving size:" />
-                        <TextBlock
-                            Text="{Binding SelectedBeer.ServingSize, Converter={StaticResource EnumDescriptionConverter}}" />
+
+                    <ListBox ItemsSource="{Binding Beers}" SelectedItem="{Binding SelectedBeer, Mode=TwoWay}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Grid.Column="1" Margin="12,0,0,0" Text="{Binding Quantity}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </GroupBox>
+
+            <!-- Details -->
+            <GroupBox Grid.Column="2" Header="Details" BorderThickness="0.1">
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />  <!-- 0 name -->
+                        <RowDefinition Height="16" />    <!-- 1 gap -->
+                        <RowDefinition Height="Auto" />  <!-- 2 info -->
+                        <RowDefinition Height="2*" />    <!-- 3 flex spacer -->
+                        <RowDefinition Height="Auto" />  <!-- 4 +1/-1 -->
+                        <RowDefinition Height="8" />     <!-- 5 gap -->
+                        <RowDefinition Height="Auto" />  <!-- 6 drink row -->
+                        <RowDefinition Height="1*" />    <!-- 7 flex spacer -->
+                        <RowDefinition Height="Auto" />  <!-- 8 separator -->
+                        <RowDefinition Height="1*" />    <!-- 9 flex spacer -->
+                        <RowDefinition Height="Auto" />  <!-- 10 edit/delete -->
+                        <RowDefinition Height="2*" />    <!-- 11 bottom padding -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Name -->
+                    <TextBlock Grid.Row="0"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Text="{Binding SelectedBeer.Name}" />
+
+                    <!-- Info -->
+                    <StackPanel Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Width="100" Text="Quantity:" />
+                            <TextBlock Text="{Binding SelectedBeer.Quantity}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Width="100" Text="Serving size:" />
+                            <TextBlock
+                                Text="{Binding SelectedBeer.ServingSize, Converter={StaticResource EnumDescriptionConverter}}" />
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
 
-                <!-- +1 / -1 (hidden when quantity is 0 or nothing selected) -->
-                <StackPanel Grid.Row="4" Orientation="Horizontal">
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Setter Property="Visibility" Value="Visible" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding SelectedBeer.Quantity}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-                    <ui:Button Content="+1" Width="60" Margin="0,0,8,0" Command="{Binding AddOneCommand}" />
-                    <ui:Button Content="-1" Width="60" Command="{Binding DrinkOneCommand}" />
-                </StackPanel>
+                    <!-- +1 / -1 (hidden when quantity is 0 or nothing selected) -->
+                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SelectedBeer.Quantity}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <ui:Button Content="+1" Width="80" Margin="0,0,8,0" Command="{Binding AddOneCommand}" />
+                        <ui:Button Content="-1" Width="80" Command="{Binding DrinkOneCommand}" />
+                    </StackPanel>
 
-                <!-- Drink row (hidden when quantity is 0 or nothing selected) -->
-                <StackPanel Grid.Row="6" Orientation="Horizontal">
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Setter Property="Visibility" Value="Visible" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding SelectedBeer.Quantity}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-                    <ui:TextBox Width="80"
-                                Margin="0,0,8,0"
-                                Text="{Binding DrinkAmount, UpdateSourceTrigger=PropertyChanged}"
-                                PlaceholderText="Amount" />
-                    <ui:Button Content="Drink" Command="{Binding DrinkManyCommand}" />
-                </StackPanel>
+                    <!-- Drink row (hidden when quantity is 0 or nothing selected) -->
+                    <StackPanel Grid.Row="6" Orientation="Horizontal">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SelectedBeer.Quantity}" Value="0">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <ui:TextBox Width="80"
+                                    Margin="0,0,8,0"
+                                    Text="{Binding DrinkAmount, UpdateSourceTrigger=PropertyChanged}"
+                                    PlaceholderText="Amount" TextAlignment="Center" />
+                        <ui:Button Content="Drink" Command="{Binding DrinkManyCommand}" Width="80" />
+                    </StackPanel>
 
-                <!-- Separator (hidden when nothing selected) -->
-                <Separator Grid.Row="8">
-                    <Separator.Style>
-                        <Style TargetType="Separator">
-                            <Setter Property="Visibility" Value="Visible" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Separator.Style>
-                </Separator>
+                    <!-- Separator (hidden when nothing selected) -->
+                    <Separator Grid.Row="8">
+                        <Separator.Style>
+                            <Style TargetType="Separator">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Separator.Style>
+                    </Separator>
 
-                <!-- Edit / Delete (hidden when nothing selected) -->
-                <StackPanel Grid.Row="10" Orientation="Horizontal">
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Setter Property="Visibility" Value="Visible" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
-                                    <Setter Property="Visibility" Value="Collapsed" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-                    <ui:Button Content="Delete" Width="80" Margin="0,0,8,0" Command="{Binding DeleteCommand}" />
-                    <ui:Button Content="Edit" Width="80" Command="{Binding EditCommand}" />
-                </StackPanel>
+                    <!-- Edit / Delete (hidden when nothing selected) -->
+                    <StackPanel Grid.Row="10" Orientation="Horizontal">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <ui:Button Width="80" Margin="0,0,8,0" Command="{Binding DeleteCommand}">
+                            <ui:Button.Icon>
+                                <ui:SymbolIcon Symbol="Delete24" />
+                            </ui:Button.Icon>
+                        </ui:Button>
 
-                <!-- Tip when nothing selected -->
-                <TextBlock Grid.Row="3" Grid.RowSpan="9"
-                           Foreground="Gray"
-                           FontStyle="Italic"
-                           Text="Select a beer to see details here."
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </Grid>
-        </GroupBox>
+                        <ui:Button Width="80" Command="{Binding EditCommand}">
+                            <ui:Button.Icon>
+                                <ui:SymbolIcon Symbol="Edit24" />
+                            </ui:Button.Icon>
+                        </ui:Button>
+                    </StackPanel>
+                    
+                    <!-- Restock (shown when quantity is 0 and a beer is selected) -->
+                    <StackPanel Grid.Row="4" Grid.RowSpan="3" Orientation="Horizontal" VerticalAlignment="Center">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedBeer.Quantity}" Value="0">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <ui:Button Content="Restock" Width="80" Command="{Binding RestockCommand}" />
+                    </StackPanel>
+
+                    <!-- Tip when nothing selected -->
+                    <TextBlock Grid.Row="3" Grid.RowSpan="9"
+                               Foreground="Gray"
+                               FontStyle="Italic"
+                               Text="Select a beer to see details here."
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </GroupBox>
+        </Grid>
     </Grid>
 </Window>

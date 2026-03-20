@@ -4,12 +4,13 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:local="clr-namespace:BeerTracker"
              xmlns:converters="clr-namespace:BeerTracker.Converters"
+             xmlns:markup="http://schemas.lepo.co/wpfui/2022/xaml"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
          <ResourceDictionary>
              <ResourceDictionary.MergedDictionaries>
-                 <ui:ThemesDictionary Theme="Dark"/>
-                 <ui:ControlsDictionary/>
+                 <markup:ThemesDictionary Theme="Dark"/>
+                 <markup:ControlsDictionary/>
              </ResourceDictionary.MergedDictionaries>
              <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
          </ResourceDictionary>

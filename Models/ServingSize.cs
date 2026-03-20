@@ -6,6 +6,8 @@ public enum ServingSize
 {
     [Description("355 ml")]
     Ml355 = 355,
+    [Description("473 ml")]
+    Ml473 = 473,
     [Description("500 ml")]
     Ml500 = 500,
     [Description("750 ml")]

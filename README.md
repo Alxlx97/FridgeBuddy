@@ -41,25 +41,13 @@ Commands are implemented to manage user interactions such as adding, updating, a
 ## Screenshots
 
 Main UI
-<img width="879" height="435" alt="beerTrackerMain" src="https://github.com/user-attachments/assets/05ac0be1-ed4d-4095-a5a0-4df14186d78a" />
+<img width="879" height="437" alt="beerTrackerMain" src="https://github.com/user-attachments/assets/32277052-9c13-4c5d-8806-f4d0bc4b1d17" />
 
 Selected beer
-<img width="881" height="439" alt="BeerTrackerSelected" src="https://github.com/user-attachments/assets/7f527009-c1d7-4d56-a852-3e51229e71ab" />
+<img width="876" height="433" alt="BeerTrackerSelected" src="https://github.com/user-attachments/assets/046f9b69-0527-4072-9d79-63bb430e4ca9" />
 
 Add view
-<img width="880" height="436" alt="BeerTrackerAddView" src="https://github.com/user-attachments/assets/6985f5c9-145b-48f5-836d-080c1510fbad" />
-
-Modify view
-<img width="878" height="434" alt="BeerTrackerModifyView" src="https://github.com/user-attachments/assets/eccfe06e-79aa-45b0-b009-3d6f25b18e29" />
-
-Delete message
-<img width="881" height="437" alt="BeerTrackerDeleteMessage" src="https://github.com/user-attachments/assets/34c45b15-5408-462e-9a89-74306841138b" />
-
-Error message
-<img width="879" height="437" alt="BeerTrackerError" src="https://github.com/user-attachments/assets/489fd258-b772-4a38-888d-78eace41e8e3" />
-
-Fullscreen
-<img width="1915" height="1029" alt="BeerTrackerFullScreen" src="https://github.com/user-attachments/assets/4dadc47d-a953-4a9b-a2f0-6483104ff9b0" />
+<img width="878" height="433" alt="BeerTrackerAddView" src="https://github.com/user-attachments/assets/44205d0c-cc41-4661-a9c7-671a429d01a0" />
 
 ---
 

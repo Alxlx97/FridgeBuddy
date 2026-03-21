@@ -17,7 +17,7 @@
 
         <!-- Header -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
-            <TextBlock Text="Beer Tracker" FontSize="36" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <TextBlock Text="BeerTracker" FontSize="36" FontWeight="SemiBold" VerticalAlignment="Center" />
             <Image Source="pack://application:,,,/beer.png" Width="46" Height="46" Margin="0,0,8,0" />
         </StackPanel>
 

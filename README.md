@@ -66,9 +66,3 @@ It evolved into a complete desktop application to practice building structured, 
 - Potential web version (Vue.js or React)
 
 ---
-
-## How to Run
-
-1. Clone the repository
-2. Open the solution in JetBrains Rider or Visual Studio
-3. Build and run the project

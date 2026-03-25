@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace BeerTracker.Models;
+namespace FridgeBuddy.Models;
 
 public enum PackSize
 {

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace BeerTracker.ViewModels;
+namespace FridgeBuddy.ViewModels;
 
 public class RelayCommand : ICommand
 {

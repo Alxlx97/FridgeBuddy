@@ -1,9 +1,9 @@
 ﻿using System.Windows;
-using BeerTracker.Services;
-using BeerTracker.ViewModels;
+using FridgeBuddy.Services;
+using FridgeBuddy.ViewModels;
 using Wpf.Ui.Controls;
 
-namespace BeerTracker;
+namespace FridgeBuddy;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -13,6 +13,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainViewModel(new BeerStorage(), new BeerDialogService(), new ConfirmDialogService());
+        DataContext = new MainViewModel(new DrinkStorage(), new DrinkDialogService(), new ConfirmDialogService());
     }
 }

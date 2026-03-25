@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace BeerTracker.Services;
+namespace FridgeBuddy.Services;
 
 public class ConfirmDialogService : IConfirmDialogService
 {

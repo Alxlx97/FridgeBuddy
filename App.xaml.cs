@@ -3,7 +3,7 @@ using System.Data;
 using System.Windows;
 using Wpf.Ui.Appearance;
 
-namespace BeerTracker;
+namespace FridgeBuddy;
 
 /// <summary>
 /// Interaction logic for App.xaml

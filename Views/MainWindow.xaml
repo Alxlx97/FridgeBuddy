@@ -1,12 +1,12 @@
-﻿<Window x:Class="BeerTracker.MainWindow"
+﻿<Window x:Class="FridgeBuddy.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        xmlns:converters="clr-namespace:BeerTracker.Converters"
-        Title="BeerTracker" Height="450" Width="900"
+        xmlns:converters="clr-namespace:FridgeBuddy.Converters"
+        Title="FridgeBuddy" Height="450" Width="900"
         Background="{DynamicResource ApplicationBackgroundBrush}"
         Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-        Icon="pack://application:,,,/beer.ico">
+        Icon="pack://application:,,,/drink.ico">
 
     <Grid Margin="12">
         <Grid.RowDefinitions>
@@ -17,8 +17,8 @@
 
         <!-- Header -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
-            <TextBlock Text="BeerTracker" FontSize="36" FontWeight="SemiBold" VerticalAlignment="Center" />
-            <Image Source="pack://application:,,,/beer.png" Width="46" Height="46" Margin="0,0,8,0" />
+            <TextBlock Text="FridgeBuddy" FontSize="36" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <Image Source="pack://application:,,,/drink.png" Width="46" Height="46" Margin="0,0,8,0" />
         </StackPanel>
 
         <Grid Grid.Row="2">
@@ -39,7 +39,7 @@
                         <ui:Button Icon="Add24" Content="Add" Command="{Binding AddCommand}" />
                     </StackPanel>
 
-                    <ListBox ItemsSource="{Binding Beers}" SelectedItem="{Binding SelectedBeer, Mode=TwoWay}">
+                    <ListBox ItemsSource="{Binding Drinks}" SelectedItem="{Binding SelectedDrink, Mode=TwoWay}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -78,18 +78,18 @@
                     <TextBlock Grid.Row="0"
                                FontSize="18"
                                FontWeight="SemiBold"
-                               Text="{Binding SelectedBeer.Name}" />
+                               Text="{Binding SelectedDrink.Name}" />
 
                     <!-- Info -->
                     <StackPanel Grid.Row="2">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                             <TextBlock Width="100" Text="Quantity:" />
-                            <TextBlock Text="{Binding SelectedBeer.Quantity}" />
+                            <TextBlock Text="{Binding SelectedDrink.Quantity}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Width="100" Text="Serving size:" />
                             <TextBlock
-                                Text="{Binding SelectedBeer.ServingSize, Converter={StaticResource EnumDescriptionConverter}}" />
+                                Text="{Binding SelectedDrink.ServingSize, Converter={StaticResource EnumDescriptionConverter}}" />
                         </StackPanel>
                     </StackPanel>
 
@@ -99,10 +99,10 @@
                             <Style TargetType="StackPanel">
                                 <Setter Property="Visibility" Value="Visible" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding SelectedDrink}" Value="{x:Null}">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding SelectedBeer.Quantity}" Value="0">
+                                    <DataTrigger Binding="{Binding SelectedDrink.Quantity}" Value="0">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -118,10 +118,10 @@
                             <Style TargetType="StackPanel">
                                 <Setter Property="Visibility" Value="Visible" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding SelectedDrink}" Value="{x:Null}">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding SelectedBeer.Quantity}" Value="0">
+                                    <DataTrigger Binding="{Binding SelectedDrink.Quantity}" Value="0">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -140,7 +140,7 @@
                             <Style TargetType="Separator">
                                 <Setter Property="Visibility" Value="Visible" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding SelectedDrink}" Value="{x:Null}">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -154,7 +154,7 @@
                             <Style TargetType="StackPanel">
                                 <Setter Property="Visibility" Value="Visible" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding SelectedDrink}" Value="{x:Null}">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -173,13 +173,13 @@
                         </ui:Button>
                     </StackPanel>
                     
-                    <!-- Restock (shown when quantity is 0 and a beer is selected) -->
+                    <!-- Restock (shown when quantity is 0 and a drink is selected) -->
                     <StackPanel Grid.Row="4" Grid.RowSpan="3" Orientation="Horizontal" VerticalAlignment="Center">
                         <StackPanel.Style>
                             <Style TargetType="StackPanel">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedBeer.Quantity}" Value="0">
+                                    <DataTrigger Binding="{Binding SelectedDrink.Quantity}" Value="0">
                                         <Setter Property="Visibility" Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -192,14 +192,14 @@
                     <TextBlock Grid.Row="3" Grid.RowSpan="9"
                                Foreground="Gray"
                                FontStyle="Italic"
-                               Text="Select a beer to see details here."
+                               Text="Select a drink to see details here."
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SelectedBeer}" Value="{x:Null}">
+                                    <DataTrigger Binding="{Binding SelectedDrink}" Value="{x:Null}">
                                         <Setter Property="Visibility" Value="Visible" />
                                     </DataTrigger>
                                 </Style.Triggers>

@@ -1,4 +1,4 @@
-﻿namespace BeerTracker.Services;
+﻿namespace FridgeBuddy.Services;
 
 public interface IConfirmDialogService
 {

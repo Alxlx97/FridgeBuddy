@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Windows.Data;
 
-namespace BeerTracker.Converters;
+namespace FridgeBuddy.Converters;
 
 public class EnumDescriptionConverter : IValueConverter
 {

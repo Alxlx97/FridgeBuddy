@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BeerTracker.Models;
+namespace FridgeBuddy.Models;
 
-public class Beer : INotifyPropertyChanged
+public class Drink : INotifyPropertyChanged
 {
     private int _id;
     

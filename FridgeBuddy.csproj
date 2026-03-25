@@ -3,7 +3,7 @@
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net8.0-windows</TargetFramework>
-        <ApplicationIcon>beer.ico</ApplicationIcon>
+        <ApplicationIcon>drink.ico</ApplicationIcon>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
@@ -22,10 +22,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="beer.png" />
-      <Resource Include="beer.png" />
-      <None Remove="beer.ico" />
-      <Resource Include="beer.ico" />
+      <None Remove="drink.png" />
+      <Resource Include="drink.png" />
+      <None Remove="drink.ico" />
+      <Resource Include="drink.ico" />
     </ItemGroup>
 
 </Project>

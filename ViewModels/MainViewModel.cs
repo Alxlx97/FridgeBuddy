@@ -2,10 +2,10 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using BeerTracker.Models;
-using BeerTracker.Services;
+using FridgeBuddy.Models;
+using FridgeBuddy.Services;
 
-namespace BeerTracker.ViewModels;
+namespace FridgeBuddy.ViewModels;
 
 public class MainViewModel : INotifyPropertyChanged
 {
@@ -13,15 +13,15 @@ public class MainViewModel : INotifyPropertyChanged
     
     private int _drinkAmount = 1;
     
-    private readonly BeerStorage _beerStorage = new();
+    private readonly DrinkStorage _drinkStorage = new();
     
-    private readonly IBeerDialogService _beerDialogService;
+    private readonly IDrinkDialogService _drinkDialogService;
 
     private readonly IConfirmDialogService _confirm = new ConfirmDialogService();
     
-    public ObservableCollection<Beer> Beers { get; } = new();
+    public ObservableCollection<Drink> Drinks { get; } = new();
     
-    private Beer? _selectedBeer;
+    private Drink? _selectedDrink;
     
     public RelayCommand AddCommand { get; }
     
@@ -48,12 +48,12 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public Beer? SelectedBeer
+    public Drink? SelectedDrink
     {
-        get => _selectedBeer;
+        get => _selectedDrink;
         set
         {
-            _selectedBeer = value;
+            _selectedDrink = value;
             OnPropertyChanged();
             DeleteCommand.RaiseCanExecuteChanged();
             EditCommand.RaiseCanExecuteChanged();
@@ -64,53 +64,53 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
 
-    public MainViewModel() : this(new BeerStorage(), new BeerDialogService(), new ConfirmDialogService()) { }
+    public MainViewModel() : this(new DrinkStorage(), new DrinkDialogService(), new ConfirmDialogService()) { }
 
-    public MainViewModel(BeerStorage beerStorage, IBeerDialogService beerDialogService, IConfirmDialogService confirmDialogService)
+    public MainViewModel(DrinkStorage drinkStorage, IDrinkDialogService drinkDialogService, IConfirmDialogService confirmDialogService)
     {
-        _beerStorage = beerStorage;
-        _beerDialogService = beerDialogService;
+        _drinkStorage = drinkStorage;
+        _drinkDialogService = drinkDialogService;
         _confirm = confirmDialogService;
 
-        foreach (var beer in _beerStorage.Load())
+        foreach (var drink in _drinkStorage.Load())
         {
-            if (beer.RestockAmount <= 0)
+            if (drink.RestockAmount <= 0)
             {
-                beer.RestockAmount = beer.Quantity > 0 ? beer.Quantity : 1;
+                drink.RestockAmount = drink.Quantity > 0 ? drink.Quantity : 1;
             }
             
-            Beers.Add(beer);
+            Drinks.Add(drink);
         }
         
-        _nextId = Beers.Count == 0 ? 1 : Beers.Max(b => b.Id) + 1;
+        _nextId = Drinks.Count == 0 ? 1 : Drinks.Max(b => b.Id) + 1;
             
-        AddCommand = new RelayCommand(AddBeer);
-        DeleteCommand = new RelayCommand(DeleteBeer, () => SelectedBeer != null);
-        EditCommand = new RelayCommand(EditBeer, () => SelectedBeer != null);
-        AddOneCommand = new RelayCommand(AddOneBeer, () => SelectedBeer != null);
-        DrinkOneCommand = new RelayCommand(DrinkOneBeer, () => SelectedBeer != null && SelectedBeer.Quantity > 0);
-        DrinkManyCommand = new RelayCommand(DrinkManyBeers, () => SelectedBeer != null && DrinkAmount > 0);
-        RestockCommand = new RelayCommand(RestockBeer, () => SelectedBeer != null && SelectedBeer.Quantity == 0 && SelectedBeer.RestockAmount > 0);
+        AddCommand = new RelayCommand(AddDrink);
+        DeleteCommand = new RelayCommand(DeleteDrink, () => SelectedDrink != null);
+        EditCommand = new RelayCommand(EditDrink, () => SelectedDrink != null);
+        AddOneCommand = new RelayCommand(AddOneDrink, () => SelectedDrink != null);
+        DrinkOneCommand = new RelayCommand(DrinkOneDrink, () => SelectedDrink != null && SelectedDrink.Quantity > 0);
+        DrinkManyCommand = new RelayCommand(DrinkManyDrinks, () => SelectedDrink != null && DrinkAmount > 0);
+        RestockCommand = new RelayCommand(RestockDrinks, () => SelectedDrink != null && SelectedDrink.Quantity == 0 && SelectedDrink.RestockAmount > 0);
     }
 
-    private void AddBeer()
+    private void AddDrink()
     {
-        if (!_beerDialogService.TryShowAddBeerDialog(out var result)) return;
+        if (!_drinkDialogService.TryShowAddDrinkDialog(out var result)) return;
         
         if (string.IsNullOrWhiteSpace(result.Name)) return;
         
         int packQty = (int)result.PackSize;
         
-        var existingBeer = Beers.FirstOrDefault(b => string.Equals(b.Name, result.Name, StringComparison.OrdinalIgnoreCase) && b.ServingSize == result.ServingSize);
+        var existingDrink = Drinks.FirstOrDefault(b => string.Equals(b.Name, result.Name, StringComparison.OrdinalIgnoreCase) && b.ServingSize == result.ServingSize);
 
-        if (existingBeer is not null)
+        if (existingDrink is not null)
         {
-            existingBeer.Quantity += packQty;
-            existingBeer.RestockAmount = packQty;
+            existingDrink.Quantity += packQty;
+            existingDrink.RestockAmount = packQty;
         }
         else
         {
-            Beers.Add(new Beer()
+            Drinks.Add(new Drink()
             {
                 Id = _nextId++,
                 Name = result.Name,
@@ -120,41 +120,41 @@ public class MainViewModel : INotifyPropertyChanged
             });   
         }
         
-        _beerStorage.Save(Beers);
+        _drinkStorage.Save(Drinks);
     }
 
-    private void EditBeer()
+    private void EditDrink()
     {
-        if (SelectedBeer is null) return;
+        if (SelectedDrink is null) return;
 
-        if (!_beerDialogService.TryShowEditBeerDialog(SelectedBeer, out var result)) return;
+        if (!_drinkDialogService.TryShowEditDrinkDialog(SelectedDrink, out var result)) return;
         
-        SelectedBeer.Name = result.Name;
-        SelectedBeer.ServingSize = result.ServingSize;
+        SelectedDrink.Name = result.Name;
+        SelectedDrink.ServingSize = result.ServingSize;
         
-        _beerStorage.Save(Beers);
+        _drinkStorage.Save(Drinks);
     }
     
-    private void DeleteBeer()
+    private void DeleteDrink()
     {
-        if (SelectedBeer is null) return;
+        if (SelectedDrink is null) return;
 
-        if (!_confirm.Confirm("Are you sure you want to delete this beer?", "Delete a beer"))
+        if (!_confirm.Confirm("Are you sure you want to delete this drink?", "Delete a drink"))
             return;
         
-        Beers.Remove(SelectedBeer);
-        SelectedBeer = null;
+        Drinks.Remove(SelectedDrink);
+        SelectedDrink = null;
         DeleteCommand.RaiseCanExecuteChanged();
-        _beerStorage.Save(Beers);
+        _drinkStorage.Save(Drinks);
     }
 
-    private void AddOneBeer()
+    private void AddOneDrink()
     {
-        if (SelectedBeer is null) return;
+        if (SelectedDrink is null) return;
         
-        SelectedBeer.Quantity += 1;
+        SelectedDrink.Quantity += 1;
        
-        _beerStorage.Save(Beers);
+        _drinkStorage.Save(Drinks);
        
         AddOneCommand.RaiseCanExecuteChanged();
         DrinkOneCommand.RaiseCanExecuteChanged();
@@ -162,14 +162,14 @@ public class MainViewModel : INotifyPropertyChanged
         RestockCommand.RaiseCanExecuteChanged();
     }
 
-    private void DrinkOneBeer()
+    private void DrinkOneDrink()
     {
-        if (SelectedBeer is null) return;
-        if (SelectedBeer.Quantity <= 0) return;
+        if (SelectedDrink is null) return;
+        if (SelectedDrink.Quantity <= 0) return;
         
-        SelectedBeer.Quantity -= 1;
+        SelectedDrink.Quantity -= 1;
        
-        _beerStorage.Save(Beers);
+        _drinkStorage.Save(Drinks);
         
         AddOneCommand.RaiseCanExecuteChanged();
         DrinkOneCommand.RaiseCanExecuteChanged();
@@ -177,20 +177,20 @@ public class MainViewModel : INotifyPropertyChanged
         RestockCommand.RaiseCanExecuteChanged();
     }
 
-    private void DrinkManyBeers()
+    private void DrinkManyDrinks()
     {
-        if (SelectedBeer is null) return;
+        if (SelectedDrink is null) return;
         if (DrinkAmount <= 0) return;
 
-        if (DrinkAmount > SelectedBeer.Quantity)
+        if (DrinkAmount > SelectedDrink.Quantity)
         {
-            MessageBox.Show("You can't drink more beers than the number of beers available", "Drinking many beers",
+            MessageBox.Show("You can't drink more drinks than the number of drinks available", "Drinking many drinks",
                 MessageBoxButton.OK, MessageBoxImage.Error);
             return;
         }
         
-        SelectedBeer.Quantity = Math.Max(0, SelectedBeer.Quantity - DrinkAmount);
-        _beerStorage.Save(Beers);
+        SelectedDrink.Quantity = Math.Max(0, SelectedDrink.Quantity - DrinkAmount);
+        _drinkStorage.Save(Drinks);
         
         AddOneCommand.RaiseCanExecuteChanged();
         DrinkOneCommand.RaiseCanExecuteChanged();
@@ -198,13 +198,13 @@ public class MainViewModel : INotifyPropertyChanged
         RestockCommand.RaiseCanExecuteChanged();
     }
 
-    private void RestockBeer()
+    private void RestockDrinks()
     {
-        if (SelectedBeer is null) return;
+        if (SelectedDrink is null) return;
 
-        SelectedBeer.Quantity = SelectedBeer.RestockAmount;
+        SelectedDrink.Quantity = SelectedDrink.RestockAmount;
         
-        _beerStorage.Save(Beers);
+        _drinkStorage.Save(Drinks);
         
         AddOneCommand.RaiseCanExecuteChanged();
         DrinkOneCommand.RaiseCanExecuteChanged();

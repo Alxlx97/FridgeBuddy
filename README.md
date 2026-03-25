@@ -1,14 +1,14 @@
-# BeerTracker 
+# FridgeBuddy
 
-BeerTracker is a simple beer inventory built with C# and WPF using the MVVM architecture.  
-It allows users to track the number of beers in their inventory without manually counting them.
+FridgeBuddy is a simple drink inventory built with C# and WPF using the MVVM architecture.  
+It allows users to track the number of drinks in their inventory without manually counting them.
 
 ---
 
 ## Features
 
-- Add beers to the inventory
-- Update or delete items
+- Add drinks to the inventory
+- Update or delete drinks
 - Quick quantity adjustments (+1 / -1)
 - Custom quantity adjustments
 - Restock functionality
@@ -41,20 +41,20 @@ Commands are implemented to manage user interactions such as adding, updating, a
 ## Screenshots
 
 Main UI
-<img width="879" height="437" alt="beerTrackerMain" src="https://github.com/user-attachments/assets/32277052-9c13-4c5d-8806-f4d0bc4b1d17" />
+<img width="879" height="438" alt="FridgeBuddyMain" src="https://github.com/user-attachments/assets/fb3b02c9-29db-4fac-a1d0-a1b85b696075" />
 
-Selected beer
-<img width="876" height="433" alt="BeerTrackerSelected" src="https://github.com/user-attachments/assets/046f9b69-0527-4072-9d79-63bb430e4ca9" />
+Selected drink
+<img width="877" height="441" alt="FridgeBuddySelected" src="https://github.com/user-attachments/assets/442b312b-d0a4-4cc2-a298-1e28f3fe05cb" />
 
 Add view
-<img width="878" height="433" alt="BeerTrackerAddView" src="https://github.com/user-attachments/assets/44205d0c-cc41-4661-a9c7-671a429d01a0" />
+<img width="403" height="250" alt="FridgeBuddyAddView" src="https://github.com/user-attachments/assets/824eac78-383d-429c-ac57-72d0c1fb4d34" />
 
 ---
 
 ## Motivation
 
-This project started as a simple idea to avoid manually counting beers in my fridge.  
-It evolved into a complete desktop application to practice building structured, maintainable software using MVVM.
+It started as a simple personal beer inventory app, then I broadened the concept into a more general beverage/fridge inventory tool. 
+The main goal was to build a structured desktop application using WPF and MVVM.
 
 ---
 
@@ -63,6 +63,6 @@ It evolved into a complete desktop application to practice building structured, 
 - Support for bottle/can images
 - Low stock alerts
 - Sorting and filtering options
-- Potential web version (Vue.js or React)
+- Potential web version (Vue.js and Laravel)
 
 ---

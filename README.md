@@ -42,12 +42,15 @@ Commands are implemented to manage user interactions such as adding, updating, a
 ## Screenshots
 
 Main UI
+
 <img width="879" height="438" alt="FridgeBuddyMain" src="https://github.com/user-attachments/assets/fb3b02c9-29db-4fac-a1d0-a1b85b696075" />
 
 Selected drink
+
 <img width="877" height="441" alt="FridgeBuddySelected" src="https://github.com/user-attachments/assets/442b312b-d0a4-4cc2-a298-1e28f3fe05cb" />
 
 Add view
+
 <img width="403" height="250" alt="FridgeBuddyAddView" src="https://github.com/user-attachments/assets/824eac78-383d-429c-ac57-72d0c1fb4d34" />
 
 ---

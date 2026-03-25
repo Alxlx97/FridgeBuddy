@@ -1,7 +1,8 @@
 # FridgeBuddy
 
-FridgeBuddy is a simple drink inventory built with C# and WPF using the MVVM architecture.  
-It allows users to track the number of drinks in their inventory without manually counting them.
+FridgeBuddy is a desktop inventory tracker built with WPF, C#, 
+and MVVM that helps users manage drinks in a virtual fridge, 
+including quantities, serving sizes, and quick stock updates
 
 ---
 

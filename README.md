@@ -1,14 +1,15 @@
-# BeerTracker 
+# FridgeBuddy
 
-BeerTracker is a simple beer inventory built with C# and WPF using the MVVM architecture.  
-It allows users to track the number of beers in their inventory without manually counting them.
+FridgeBuddy is a desktop inventory tracker built with WPF, C#, 
+and MVVM that helps users manage drinks in a virtual fridge, 
+including quantities, serving sizes, and quick stock updates
 
 ---
 
 ## Features
 
-- Add beers to the inventory
-- Update or delete items
+- Add drinks to the inventory
+- Update or delete drinks
 - Quick quantity adjustments (+1 / -1)
 - Custom quantity adjustments
 - Restock functionality
@@ -41,32 +42,23 @@ Commands are implemented to manage user interactions such as adding, updating, a
 ## Screenshots
 
 Main UI
-<img width="879" height="435" alt="beerTrackerMain" src="https://github.com/user-attachments/assets/05ac0be1-ed4d-4095-a5a0-4df14186d78a" />
 
-Selected beer
-<img width="881" height="439" alt="BeerTrackerSelected" src="https://github.com/user-attachments/assets/7f527009-c1d7-4d56-a852-3e51229e71ab" />
+<img width="879" height="438" alt="FridgeBuddyMain" src="https://github.com/user-attachments/assets/fb3b02c9-29db-4fac-a1d0-a1b85b696075" />
+
+Selected drink
+
+<img width="877" height="441" alt="FridgeBuddySelected" src="https://github.com/user-attachments/assets/442b312b-d0a4-4cc2-a298-1e28f3fe05cb" />
 
 Add view
-<img width="880" height="436" alt="BeerTrackerAddView" src="https://github.com/user-attachments/assets/6985f5c9-145b-48f5-836d-080c1510fbad" />
 
-Modify view
-<img width="878" height="434" alt="BeerTrackerModifyView" src="https://github.com/user-attachments/assets/eccfe06e-79aa-45b0-b009-3d6f25b18e29" />
-
-Delete message
-<img width="881" height="437" alt="BeerTrackerDeleteMessage" src="https://github.com/user-attachments/assets/34c45b15-5408-462e-9a89-74306841138b" />
-
-Error message
-<img width="879" height="437" alt="BeerTrackerError" src="https://github.com/user-attachments/assets/489fd258-b772-4a38-888d-78eace41e8e3" />
-
-Fullscreen
-<img width="1915" height="1029" alt="BeerTrackerFullScreen" src="https://github.com/user-attachments/assets/4dadc47d-a953-4a9b-a2f0-6483104ff9b0" />
+<img width="883" height="434" alt="FridgeBuddyAddView" src="https://github.com/user-attachments/assets/69ca0d60-f138-48fe-a625-0323ad8a1356" />
 
 ---
 
 ## Motivation
 
-This project started as a simple idea to avoid manually counting beers in my fridge.  
-It evolved into a complete desktop application to practice building structured, maintainable software using MVVM.
+It started as a simple personal beer inventory app, then I broadened the concept into a more general beverage/fridge inventory tool. 
+The main goal was to build a structured desktop application using WPF and MVVM.
 
 ---
 
@@ -75,12 +67,6 @@ It evolved into a complete desktop application to practice building structured, 
 - Support for bottle/can images
 - Low stock alerts
 - Sorting and filtering options
-- Potential web version (Vue.js or React)
+- Potential web version (Vue.js and Laravel)
 
 ---
-
-## How to Run
-
-1. Clone the repository
-2. Open the solution in JetBrains Rider or Visual Studio
-3. Build and run the project

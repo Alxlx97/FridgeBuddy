@@ -51,7 +51,7 @@ Selected drink
 
 Add view
 
-<img width="403" height="250" alt="FridgeBuddyAddView" src="https://github.com/user-attachments/assets/824eac78-383d-429c-ac57-72d0c1fb4d34" />
+<img width="883" height="434" alt="FridgeBuddyAddView" src="https://github.com/user-attachments/assets/69ca0d60-f138-48fe-a625-0323ad8a1356" />
 
 ---
 

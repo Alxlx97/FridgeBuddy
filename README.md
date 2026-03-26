@@ -31,7 +31,7 @@ including quantities, serving sizes, and quick stock updates
 
 The application follows the MVVM (Model-View-ViewModel) pattern:
 
-- Model: Represents the data structure of beers  
+- Model: Represents the data structure of drinks  
 - ViewModel: Handles logic, commands, and state  
 - View: WPF UI with data binding  
 
